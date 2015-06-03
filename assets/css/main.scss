@@ -1,0 +1,63 @@
+@import "modules/msk_colors";
+
+$defaultWidth: 480px;
+
+#angularContainer{
+	font-family: arial;
+	font-size: 14px;
+	width:  $defaultWidth;
+	margin: 0px auto;
+
+}
+
+#angularSlide{
+	$slideWidth: 400px;
+	#seriesOfSlides{
+		width: $slideWidth;
+		margin: 0px auto;
+		img{
+			border: 0px;
+			width: $slideWidth;
+		}
+	}
+	#pagination {
+		text-align: center;
+		#currentSlideNumber, #totalSlides {
+			font-weight: bold;
+		}
+		#leftArrow, #rightArrow {
+			cursor: pointer;
+		}
+	}
+	#description{
+		width: $slideWidth;
+		padding: 0px ($defaultWidth - $slideWidth) / 2;
+	}
+}
+
+#setup {
+
+	width: $defaultWidth;
+
+	#form .formRow{
+		margin-bottom: 10px;
+	}
+
+	.angularInputs {
+		width: 95%;
+		
+
+	}
+
+	#saveButton{
+		background: $blue3;
+		text-align: center;
+		width: 60px;
+		margin-top: 10px;
+		float: right;
+		cursor: pointer;
+		font-weight: bold;
+		padding: 5px;
+		color: white;
+	}
+}

@@ -1,0 +1,421 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+	<meta charset="UTF-8" http-equiv="x-ua-compatible" content="IE=edge" >
+	<title>SlideShow</title>
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script src="libs/angular.min.js"></script>
+	<script src="services/angular-route.js"></script>
+	<script src="services/customServices.js"></script>
+	<script src="services/angular-sanitize.min.js"></script>
+	<script src="services/angular-base64.min.js"></script>
+	<script src="services/ngSilent.js"></script>
+	
+</head>
+<body>
+	<div id="angularContainer" ng-app="slideApp" class="ng-view" ng-cloak>
+		
+	</div>
+	<script>
+
+//hashtag causes problem and make content dissapear in routing
+// $("#intranetMap > a").removeAttr("href");
+// $("#intranetMap > a").css("cursor","pointer");
+
+angular.module("slideApp", ["ngRoute", "customServices", "base64", "ngSanitize", "ngSilent"])
+	.constant("configurationList", "Slideshow Configurations")
+	.config(function($routeProvider, configurationList){
+
+		//one resolve to rule them all
+		var universalResolves = {
+			initializer: function(spService, $base64, $location, imageStorage, $http, $q, $routeParams){
+
+				console.log("Calling resolve");
+				//declaring variable for url
+				var mainUrl = $location.absUrl().replace(/#.+$/g,""),
+					baseURL = $location.absUrl().match(/\/sites\/pub\/.+?[^/]/g)[0],
+					host = $location.host(),
+					encodeURL = $base64.encode($location.absUrl().replace(/#.+$/g,"")),
+					deferred = $q.defer();
+
+				var checkList = function(){
+					//should only run once because there is no image store on the database
+					if( imageStorage.get() === null ){
+						console.log("checkList function was called on resolve");
+
+						//getting the config items
+						spService.getListItems("https://" + host + baseURL, configurationList, "?$select=PageURL, SlideFolder, encodeURL, options&$filter=encodeURL eq '" + encodeURL + "'",
+							function(response){
+								
+								config = response.data.d.results;
+								
+								//if a match is found then proceed on getting the images
+								if( config.length > 0 ){
+									
+									$http({
+										url:"https://" + host + baseURL + "/_api/web/getFolderByServerRelativeUrl('" + baseURL + config[0].SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
+								        method: "GET",
+								        headers: { "Accept": "application/json; odata=verbose"}
+									}).then(function(response){
+
+										
+										imageStorage.add(response.data.d.results);
+										imageStorage.setOptions(JSON.parse(config[0].options))
+										imageStorage.setFolderLocation(config[0].SlideFolder);
+
+										deferred.resolve(imageStorage.get());
+
+										//should have something to check if index is greater than total number of slides
+										if($routeParams.index > imageStorage.get().length){
+											$location.path("/slide/1"); //will always start on slide 1 if first url enter is greather than album length
+										}else{
+											$location.path("/slide/" + $routeParams.index);
+										}
+
+									}, function(response){
+										deferred.reject(response);
+										
+									});
+									
+								}else{
+									//if no match is found then keep going to setup mode
+									$location.path("/setup");
+								}
+
+
+							},
+							function(response){
+								deferred.reject(response);
+							}
+						);
+
+						
+					}
+
+					return deferred.promise;			
+					
+				}
+
+
+				return {
+					Url: {
+						main: mainUrl,
+						base: baseURL,
+						host: host
+					},
+					encodeURL: encodeURL,
+					run: checkList
+				}
+			}			
+		}
+
+		var customRouteProvider = angular.extend({}, $routeProvider, {
+		    when: function(path, route) {
+		      route.resolve = (route.resolve) ? route.resolve : {};
+		      angular.extend(route.resolve, universalResolves);
+		      $routeProvider.when(path, route);
+		      return this;
+			}
+		});
+
+		customRouteProvider
+			.when("/setup",{
+				templateUrl: "views/setup.html",
+				controller: "setupCtrl"
+			})
+			.when("/slide/:index",{
+				templateUrl: "views/slideshow.html",
+				controller: "slideShowCtrl"
+			})
+			.otherwise({
+				redirectTo: "/setup"
+			})
+
+
+	})
+	.controller("setupCtrl", function($scope, $http, $location, initializer, spService, imageStorage, configurationList){
+		
+
+		var config = null;
+		$scope.folderURL = "";
+
+
+
+		$scope.save = function(){
+
+			//the list database should be setup with these names
+			var data = {
+				PageURL: initializer.Url.main,
+				SlideFolder: ($scope.folderURL).replace(/(^[^A-Za-z0-9]+|[^A-Za-z0-9]+$)/g,""),
+				encodeURL: initializer.encodeURL,
+				options: JSON.stringify({
+					headline: $scope.options.headline
+				})
+			};
+
+			//check if slide Folder exists and if it contains images
+			$http({
+				url:"https://" + initializer.Url.host + initializer.Url.base + "/_api/web/getFolderByServerRelativeUrl('" + initializer.Url.base + data.SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
+		        method: "GET",
+		        headers: { "Accept": "application/json; odata=verbose"}
+			}).then(function(response){
+
+				//obtaining json structure of images
+				imageStorage.add(response.data.d.results);
+				imageStorage.setFolderLocation(data.SlideFolder);
+				
+
+				//If there's no images then it will not save the data on to the configuration because the folder does not exist or it doesn't have any images at all
+				if(imageStorage.get().length === 0){
+					console.log("Do not add or update because there is no images");
+				}else{
+					console.log("good to post");
+					
+					console.log("https://" + initializer.Url.host + initializer.Url.base )
+
+					//check slideshow configuration to see if it needs to be added or updated
+					spService.getListItems("https://" + initializer.Url.host + initializer.Url.base, configurationList, "?$select=ID, PageURL, SlideFolder, encodeURL, options&$filter=encodeURL eq '" + initializer.encodeURL + "'",
+						function(response){
+							
+							config = response.data.d.results;
+							
+							//the condition for adding or updating
+
+							if( config.length > 0 ){
+								console.log("updating the item for " + config[0].ID)
+								spService.updateListItem("https://" + initializer.Url.host + initializer.Url.base, configurationList, config[0].ID, data,
+									function(response){
+
+										imageStorage.setIndex(1);
+										imageStorage.setOptions(JSON.parse(data.options));
+										$location.path("/slide/1");
+
+									}, function(response){
+										//fail to update the item on the slideshow configuration list
+									}
+								);
+
+							}else{
+
+								spService.addListItem("https://" + initializer.Url.host + initializer.Url.base, configurationList, data,
+									function(response){
+
+
+										imageStorage.setIndex(1);
+										imageStorage.setOptions(JSON.parse(data.options));
+										$location.path("/slide/1");
+										
+									},
+									function(response){
+										//fail to add the item onto the slideshow configuration list
+									}
+								);
+								
+							}
+
+						},
+						function(response){
+							//fail to get the slideshow configuration list
+						}
+					);
+
+
+				}
+
+			}, function(response){
+
+			})
+
+
+			
+		}
+
+	})
+	.controller("slideShowCtrl", function($scope, $location, $routeParams, $ngSilentLocation, $rootScope, imageStorage, initializer){
+
+		$scope.slides = [];
+		$scope.currentSlideNum = "";
+		$scope.totalSlides = "";
+		$scope.options = {};
+		$scope.Url = initializer.Url;
+		$scope.slideLocation = null;
+
+
+		//if no image then run to get the image
+		if(imageStorage.get() === null){
+			console.log("On slideShowCtrl and found no images");
+			initializer.run().then(function(response){
+				$scope.slides = imageStorage.get();
+				$scope.options = imageStorage.getOptions();
+
+				//because the folder doesn't exist it will go back to setup mode
+				if( $scope.slides.length === 0 ){
+					$location.path("/setup");
+				}
+
+				$scope.currentSlideNum = parseInt($routeParams.index);
+				$scope.totalSlides = $scope.slides.length;
+				$scope.slideLocation = imageStorage.getFolderLocation();
+
+				imageStorage.setIndex($scope.currentSlideNum);
+
+			})
+		}else{
+			console.log("there are images here");
+			$scope.slides = imageStorage.get();
+			$scope.options = imageStorage.getOptions();
+			$scope.slideLocation = imageStorage.getFolderLocation();
+
+			console.log($scope.options);
+
+			if(parseInt($routeParams.index) <= $scope.slides.length){
+				$scope.currentSlideNum = parseInt($routeParams.index);
+				
+				//no need to set the index if its the same
+				if($scope.currentSlideNum !== imageStorage.getIndex()){
+					imageStorage.setIndex($scope.currentSlideNum);
+				}
+
+			}else{
+				//go back to original because that index does not exist
+				$scope.currentSlideNum = imageStorage.getIndex();
+				$location.path("/slide/" + $scope.currentSlideNum);
+			}
+
+			$scope.totalSlides = $scope.slides.length;
+		}
+
+
+		$scope.leftArrow = function(){
+			if( ($scope.currentSlideNum - 1) <= 0 ){
+				
+				$scope.currentSlideNum = $scope.totalSlides;
+				imageStorage.setIndex($scope.currentSlideNum);
+				$ngSilentLocation.silent("/slide/" + $scope.currentSlideNum);
+
+			}else{
+				
+				$scope.currentSlideNum -= 1;
+				imageStorage.setIndex($scope.currentSlideNum);
+				$ngSilentLocation.silent("/slide/" + $scope.currentSlideNum);
+				
+			}
+		}
+
+		$scope.rightArrow = function(){
+			
+			if( ($scope.currentSlideNum + 1) > $scope.totalSlides){
+				$scope.currentSlideNum = 1;
+				imageStorage.setIndex($scope.currentSlideNum);
+				$ngSilentLocation.silent("/slide/" + $scope.currentSlideNum);
+			}else{
+				$scope.currentSlideNum += 1;
+				imageStorage.setIndex($scope.currentSlideNum);
+				$ngSilentLocation.silent("/slide/" + $scope.currentSlideNum);
+				
+			}
+		}
+	})
+	.factory("imageStorage", function(){
+		//storing images across controllers
+
+		var photoAlbum = null,
+			slideIndex = null,
+			options = {},
+			folderLocation = null;
+
+		return {
+			add: function(images){
+				if( angular.isObject(images) ){
+					photoAlbum = this.sortImage(images);
+				}
+			},
+			get: function(){
+				return photoAlbum;
+			},
+			getOptions: function(){
+				return options;
+			},
+			setOptions: function(setofoptions){
+				if( angular.isObject(setofoptions) ){
+					options = setofoptions;
+				}
+			},
+			setFolderLocation:function(path){
+				if( angular.isString(path) ){
+					folderLocation = path;
+				}
+			},
+			getFolderLocation:function(){
+				return folderLocation;
+			},
+			setIndex: function(index){
+				slideIndex = index;
+				console.log("slide index is set to " + slideIndex)
+			},
+			getIndex: function(){
+				return slideIndex;
+			},
+			sortImage: function(arr){
+				if( angular.isArray(arr) ){
+					return arr.sort(function(a,b){
+						//only get the numbers
+						a = parseInt( (a.Name).replace(/[^0-9]/g,"") );
+						b = parseInt( (b.Name).replace(/[^0-9]/g,"") );
+
+						if(a > b){
+							return 1;
+						}
+						if(a < b){
+							return -1;
+						}
+						//if match
+						return 0;
+					})
+
+				}
+			}
+		}
+	})
+ 	.directive("imageMove", function($window){
+		return {
+			link: function(scope, element, attrs){
+
+				//needed this because it keeps on calling keypress for every new scope created here and help do necessary clean ups to avoid memory leaks
+				scope.$on("$destroy", function(){
+					angular.element($window).unbind("keypress");
+					angular.element(document.querySelector("#leftArrow")).unbind("click");
+					angular.element(document.querySelector("#rightArrow")).unbind("click");
+				});
+
+				//controls the left arrow
+				angular.element(document.querySelector("#leftArrow")).bind("click", function(e){
+					scope.$apply(scope.leftArrow());
+				});
+
+				//controls the right arrow
+				angular.element(document.querySelector("#rightArrow")).bind("click", function(e){
+					scope.$apply(scope.rightArrow());
+				})
+
+
+				//global keypress for arrow 
+				angular.element($window).bind("keypress", function(e){
+					if(e.which == 44){
+					
+						scope.$apply(scope.leftArrow());
+					}
+					else if(e.which == 46){
+						
+						scope.$apply(scope.rightArrow());
+					}
+				})
+
+			},
+			restrict: "A"
+		}
+		
+	})	
+	</script>
+</body>
+</html>

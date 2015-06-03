@@ -1,0 +1,19 @@
+<div id="angularSlide" ng-hide="slides.length === 0">
+	<div id="seriesOfSlides">
+		<h2 ng-show="options.headline !== ''">{{options.headline}}</h2>
+		<div>
+			<img src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" alt="">
+		</div>
+	</div>
+	<div id="pagination" image-move>
+		<span id="leftArrow">«</span>
+		<span id="rightArrow">»</span>
+		<div>
+			<span id="currentSlideNumber">{{currentSlideNum}}</span> of <span id="totalSlides">{{totalSlides}}</span>
+		</div>
+	</div>
+	<div id="description" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0">
+		
+		<!-- <p>{{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</p> -->
+	</div>
+</div>
