@@ -3,11 +3,11 @@
 		width: $defaultWidth;
 		margin: 0px auto;
 		#slideLabel {
-			font-size: 14px;
+			font-size: 12px;
 			word-break:break-all;
 		}
-		#slideHeadline {
-			font-size: 20px;
+		#slideHeadline, #slidedynamicHeadline {
+			font-size: 23px;
 			font-weight: bold;
 			margin-bottom: 5px;
 			word-break: break-all;

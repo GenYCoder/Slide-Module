@@ -34,11 +34,11 @@ angular.module("setup",[])
 
 				//If there's no images then it will not save the data on to the configuration because the folder does not exist or it doesn't have any images at all
 				if(imageStorage.get().length === 0){
-					console.log("Do not add or update because there is no images");
-				}else{
-					console.log("good to post");
 					
-					console.log("https://" + initializer.Url.host + initializer.Url.base )
+				}else{
+					
+					
+					
 
 					//check slideshow configuration to see if it needs to be added or updated
 					spService.getListItems("https://" + initializer.Url.host + initializer.Url.base, configurationList, "?$select=ID, PageURL, SlideFolder, encodeURL, options&$filter=encodeURL eq '" + initializer.encodeURL + "'",
@@ -49,7 +49,7 @@ angular.module("setup",[])
 							//the condition for adding or updating
 
 							if( config.length > 0 ){
-								console.log("updating the item for " + config[0].ID)
+								
 								spService.updateListItem("https://" + initializer.Url.host + initializer.Url.base, configurationList, config[0].ID, data,
 									function(response){
 

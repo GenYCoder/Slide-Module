@@ -27,7 +27,7 @@ angular.module("slideApp", ["ngRoute", "spModule", "base64", "ngSanitize", "setu
 		var universalResolves = {
 			initializer: function(spService, $base64, $location, imageStorage, $http, $q, $routeParams){
 
-				console.log("Calling resolve");
+				
 				//declaring variable for url
 				var mainUrl = $location.absUrl().replace(/#.+$/g,""),
 					baseURL = $location.absUrl().match(/\/sites\/pub\/.+?[^/]/g)[0],
@@ -38,7 +38,7 @@ angular.module("slideApp", ["ngRoute", "spModule", "base64", "ngSanitize", "setu
 				var checkList = function(){
 					//should only run once because there is no image store on the database
 					if( imageStorage.get() === null ){
-						console.log("checkList function was called on resolve");
+						
 
 						//getting the config items
 						spService.getListItems("https://" + host + baseURL, configurationList, "?$select=PageURL, SlideFolder, encodeURL, options&$filter=encodeURL eq '" + encodeURL + "'",

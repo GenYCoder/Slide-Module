@@ -11,7 +11,7 @@ angular.module("slide", [])
 
 		//if no image then run to get the image
 		if(imageStorage.get() === null){
-			console.log("On slideShowCtrl and found no images");
+			
 			initializer.run().then(function(response){
 				$scope.slides = imageStorage.get();
 				$scope.options = imageStorage.getOptions();
@@ -29,12 +29,12 @@ angular.module("slide", [])
 
 			})
 		}else{
-			console.log("there are images here");
+			
 			$scope.slides = imageStorage.get();
 			$scope.options = imageStorage.getOptions();
 			$scope.slideLocation = imageStorage.getFolderLocation();
 
-			console.log($scope.options);
+			
 
 			if(parseInt($routeParams.index) <= $scope.slides.length){
 				$scope.currentSlideNum = parseInt($routeParams.index);
