@@ -1,4 +1,4 @@
-angular.module("customServices", [])
+angular.module("spModule", [])
 	.factory("spService", function($http, $q){
 
 		var digestValue = angular.element(document.querySelector("#__REQUESTDIGEST")).val();

@@ -48,7 +48,7 @@ gulp.task('sprite', function(){
 })
 
 gulp.task('scripts', function(){
-	return gulp.src(['./services/*.js', './controllers/*.js'])
+	return gulp.src(['./services/*.js', './controllers/*.js', './directives/*.js'])
 		.pipe(ngmin())
 		.pipe(concat('main.min.js'))
 		.pipe(uglify())

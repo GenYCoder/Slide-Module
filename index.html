@@ -19,7 +19,7 @@
 // $("#intranetMap > a").removeAttr("href");
 // $("#intranetMap > a").css("cursor","pointer");
 
-angular.module("slideApp", ["ngRoute", "customServices", "base64", "ngSanitize", "setup", "slide", "ngSilent"])
+angular.module("slideApp", ["ngRoute", "spModule", "base64", "ngSanitize", "setup", "slide", "myDirectives", "images", "ngSilent"])
 	.constant("configurationList", "Slideshow Configurations")
 	.config(function($routeProvider, configurationList){
 
@@ -130,106 +130,7 @@ angular.module("slideApp", ["ngRoute", "customServices", "base64", "ngSanitize",
 
 
 	})
-	.factory("imageStorage", function(){
-		//storing images across controllers
 
-		var photoAlbum = null,
-			slideIndex = null,
-			options = {},
-			folderLocation = null;
-
-		return {
-			add: function(images){
-				if( angular.isObject(images) ){
-					photoAlbum = this.sortImage(images);
-				}
-			},
-			get: function(){
-				return photoAlbum;
-			},
-			getOptions: function(){
-				return options;
-			},
-			setOptions: function(setofoptions){
-				if( angular.isObject(setofoptions) ){
-					options = setofoptions;
-				}
-			},
-			setFolderLocation:function(path){
-				if( angular.isString(path) ){
-					folderLocation = path;
-				}
-			},
-			getFolderLocation:function(){
-				return folderLocation;
-			},
-			setIndex: function(index){
-				slideIndex = index;
-				console.log("slide index is set to " + slideIndex)
-			},
-			getIndex: function(){
-				return slideIndex;
-			},
-			sortImage: function(arr){
-				if( angular.isArray(arr) ){
-					return arr.sort(function(a,b){
-						//only get the numbers
-						a = parseInt( (a.Name).replace(/[^0-9]/g,"") );
-						b = parseInt( (b.Name).replace(/[^0-9]/g,"") );
-
-						if(a > b){
-							return 1;
-						}
-						if(a < b){
-							return -1;
-						}
-						//if match
-						return 0;
-					})
-
-				}
-			}
-		}
-	})
- 	.directive("imageMove", function($window){
-		return {
-			link: function(scope, element, attrs){
-
-				//needed this because it keeps on calling keypress for every new scope created here and help do necessary clean ups to avoid memory leaks
-				scope.$on("$destroy", function(){
-					angular.element($window).unbind("keypress");
-					angular.element(document.querySelector("#leftArrow")).unbind("click");
-					angular.element(document.querySelector("#rightArrow")).unbind("click");
-				});
-
-				//controls the left arrow
-				angular.element(document.querySelector("#leftArrow")).bind("click", function(e){
-					scope.$apply(scope.leftArrow());
-				});
-
-				//controls the right arrow
-				angular.element(document.querySelector("#rightArrow")).bind("click", function(e){
-					scope.$apply(scope.rightArrow());
-				})
-
-
-				//global keypress for arrow 
-				angular.element($window).bind("keypress", function(e){
-					if(e.which == 44){
-					
-						scope.$apply(scope.leftArrow());
-					}
-					else if(e.which == 46){
-						
-						scope.$apply(scope.rightArrow());
-					}
-				})
-
-			},
-			restrict: "A"
-		}
-		
-	})	
 	</script>
 </body>
 </html>
