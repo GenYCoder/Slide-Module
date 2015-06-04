@@ -1,34 +1,3 @@
-#angularContainer {
-  font-family: arial;
-  font-size: 14px;
-  width: 480px;
-  margin: 0px auto; }
-
-#angularSlide #seriesOfSlides {
-  width: 400px;
-  margin: 0px auto; }
-  #angularSlide #seriesOfSlides img {
-    border: 0px;
-    width: 400px; }
-  #angularSlide #seriesOfSlides #slideHeadline {
-    font-size: 24px;
-    font-weight: bold; }
-  #angularSlide #seriesOfSlides #authorname {
-    text-align: right;
-    font-size: 10px;
-    margin-top: 5px; }
-
-#angularSlide #pagination {
-  text-align: center; }
-  #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
-    font-weight: bold; }
-  #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
-    cursor: pointer; }
-
-#angularSlide #description {
-  width: 400px;
-  padding: 0px 40px; }
-
 #setup {
   width: 480px; }
   #setup #form .formRow {
@@ -45,3 +14,46 @@
     font-weight: bold;
     padding: 5px;
     color: white; }
+
+#angularSlide #seriesOfSlides {
+  width: 480px;
+  margin: 0px auto; }
+  #angularSlide #seriesOfSlides img {
+    border: 0px;
+    width: 480px; }
+  #angularSlide #seriesOfSlides #slideHeadline {
+    font-size: 24px;
+    font-weight: bold; }
+  #angularSlide #seriesOfSlides #authorname {
+    text-align: right;
+    font-size: 11px;
+    margin-top: 5px;
+    height: 14px;
+    color: #797979; }
+
+#angularSlide #pagination {
+  text-align: center;
+  position: relative;
+  height: 50px; }
+  #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
+    font-weight: bold; }
+  #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
+    cursor: pointer;
+    position: absolute;
+    top: 0px; }
+  #angularSlide #pagination #leftArrow {
+    left: 185px; }
+  #angularSlide #pagination #rightArrow {
+    right: 185px; }
+  #angularSlide #pagination #paginationCounter {
+    text-align: center;
+    padding-top: 5px; }
+
+#angularSlide #description {
+  width: 480px; }
+
+#angularContainer {
+  font-family: arial;
+  font-size: 14px;
+  width: 480px;
+  margin: 0px auto; }

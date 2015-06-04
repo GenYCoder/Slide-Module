@@ -17,25 +17,23 @@ gulp.task('styles', function(){
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions']
 		}))
-		.pipe(gulp.dest('assets/css'))
+		.pipe(gulp.dest('./assets/css'))
 		.pipe(scsso(true))
 		.pipe(rename('main.min.css'))
-		.pipe(sourcemaps.init({loadMaps:true}))
-		.pipe(sourcemaps.write())
-		.pipe(gulp.dest('assets/css'))
+		.pipe(gulp.dest('./assets/css'))
 
 });
 
 gulp.task('styles:watch', function(){
-	gulp.watch("./sass/*.scss", ['styles'])
+	gulp.watch("./sass/**/*", ['styles'])
 })
 
 gulp.task('sprite', function(){
 
-	var spriteData = gulp.src('assets/img/*.png').pipe(spritesmith({
-		imgName: 'sprite.png',
-		cssName: 'sprite.min.css',
-		imgPath: '../img/sprites/sprite.png'
+	var spriteData = gulp.src('./assets/img/*.png').pipe(spritesmith({
+		imgName: 'icons.png',
+		cssName: 'icons.min.css',
+		imgPath: '../img/sprites/icons.png'
 	}))
 	
 	var imgStream = spriteData.img
@@ -50,7 +48,7 @@ gulp.task('sprite', function(){
 })
 
 gulp.task('scripts', ['styles'], function(){
-	return gulp.src('services/*.js')
+	return gulp.src('./services/*.js')
 		.pipe(ngmin())
 		.pipe(concat('services.min.js'))
 		.pipe(uglify())

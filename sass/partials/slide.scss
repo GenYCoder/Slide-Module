@@ -1,0 +1,48 @@
+#angularSlide{
+	#seriesOfSlides{
+		width: $defaultWidth;
+		margin: 0px auto;
+		img{
+			border: 0px;
+			width: $defaultWidth;
+		}
+		#slideHeadline{
+			font-size: 24px;
+			font-weight: bold;
+		}
+		#authorname{
+			text-align: right;
+			font-size: 11px;
+			margin-top: 5px;
+			height: 14px;
+			color: $msk_gray;
+		}
+	}
+	#pagination {
+		$arrowSpacing: 185px;
+		text-align: center;
+		position: relative;
+		height: 50px;
+		#currentSlideNumber, #totalSlides {
+			font-weight: bold;
+		}
+		#leftArrow, #rightArrow {
+			cursor: pointer;
+			position: absolute;
+			top:0px;
+		}
+		#leftArrow{
+			left: $arrowSpacing;
+		}
+		#rightArrow {
+			right: $arrowSpacing;
+		}
+		#paginationCounter {
+			text-align: center;
+			padding-top: 5px;
+		}
+	}
+	#description{
+		width: $defaultWidth;
+	}
+}
