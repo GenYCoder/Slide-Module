@@ -1,5 +1,6 @@
 <div id="angularSlide" ng-hide="slides.length === 0">
 	<div id="seriesOfSlides">
+		<div id="slideLabel" ng-show="options.headline !== ''">{{options.labelheadline | uppercase}}</div>
 		<div id="slideHeadline" ng-show="options.headline !== ''">{{options.headline}}</div>
 		<div>
 			<img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" alt="">

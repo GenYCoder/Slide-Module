@@ -47,12 +47,12 @@ gulp.task('sprite', function(){
 	
 })
 
-gulp.task('scripts', ['styles'], function(){
-	return gulp.src('./services/*.js')
+gulp.task('scripts', function(){
+	return gulp.src(['./services/*.js', './controllers/*.js'])
 		.pipe(ngmin())
-		.pipe(concat('services.min.js'))
+		.pipe(concat('main.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('services'))
+		.pipe(gulp.dest('./'))
 
 })
 
