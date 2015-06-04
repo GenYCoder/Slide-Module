@@ -1,0 +1,37 @@
+$mskFontFamily: "arial";
+$mskFontSize: 13px;
+$mskDefaultWidth: 500px;
+$mskSideBarWidth: 200px;
+
+@mixin defaultBody {
+	font-family: $mskFontFamily;
+	font-size: $mskFontSize;
+	width: $mskDefaultWidth;
+}
+
+@mixin ngValidationBGStyle {
+	&.ng-valid {
+		background: $blue3;
+	}
+	&.ng-invalid {
+		background: $blue2;
+		color:white;
+		font-family: $mskFontFamily;
+	}
+}
+
+@mixin buttonStyle {
+	text-align: center;
+	width: 130px;
+	height: 33px;
+	font-weight: bold;
+	font-size: $mskFontSize + 1px;
+	border:none;
+}
+
+@mixin noSpacing {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+

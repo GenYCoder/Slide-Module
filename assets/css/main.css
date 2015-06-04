@@ -10,12 +10,21 @@
   #angularSlide #seriesOfSlides img {
     border: 0px;
     width: 400px; }
+  #angularSlide #seriesOfSlides #slideHeadline {
+    font-size: 24px;
+    font-weight: bold; }
+  #angularSlide #seriesOfSlides #authorname {
+    text-align: right;
+    font-size: 10px;
+    margin-top: 5px; }
+
 #angularSlide #pagination {
   text-align: center; }
   #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
     font-weight: bold; }
   #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
     cursor: pointer; }
+
 #angularSlide #description {
   width: 400px;
   padding: 0px 40px; }
@@ -27,7 +36,7 @@
   #setup .angularInputs {
     width: 95%; }
   #setup #saveButton {
-    background: #377bb7;
+    background: #377BB7;
     text-align: center;
     width: 60px;
     margin-top: 10px;
