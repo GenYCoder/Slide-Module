@@ -1,136 +1,137 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8" http-equiv="x-ua-compatible" content="IE=edge" >
-	<title>SlideShow</title>
-	<link rel="stylesheet" href="assets/css/main.min.css">
-	<link rel="stylesheet" href="assets/css/icons.min.css" />
-	<script src="libs/angular.min.js"></script>
-	<script src="main.min.js"></script>
-	
+    <meta charset="UTF-8" http-equiv="x-ua-compatible" content="IE=edge">
+    <title>SlideShow</title>
+    <link rel="stylesheet" href="assets/css/main.min.css">
+    <link rel="stylesheet" href="assets/css/icons.min.css" />
+    <script src="libs/angular.min.js"></script>
+    <script src="main.min.js"></script>
 </head>
+
 <body>
-	<div id="angularContainer" ng-app="slideApp" class="ng-view" ng-cloak>
-		
-	</div>
-	<script>
+    <div id="angularContainer" ng-app="slideApp" class="ng-view" ng-cloak>
+    </div>
+    <script>
+    //hashtag causes problem and make content dissapear in routing
+    // $("#intranetMap > a").removeAttr("href");
+    // $("#intranetMap > a").css("cursor","pointer");
 
-//hashtag causes problem and make content dissapear in routing
-// $("#intranetMap > a").removeAttr("href");
-// $("#intranetMap > a").css("cursor","pointer");
+    angular.module("slideApp", ["ngRoute", "spModule", "base64", "ngSanitize", "setup", "slide", "myDirectives", "images", "ngSilent"])
+        .constant("configurationList", "Slideshow Configurations")
+        .config(function($routeProvider, configurationList) {
 
-angular.module("slideApp", ["ngRoute", "spModule", "base64", "ngSanitize", "setup", "slide", "myDirectives", "images", "ngSilent"])
-	.constant("configurationList", "Slideshow Configurations")
-	.config(function($routeProvider, configurationList){
-
-		//one resolve to rule them all
-		var universalResolves = {
-			initializer: function(spService, $base64, $location, imageStorage, $http, $q, $routeParams){
-
-				
-				//declaring variable for url
-				var mainUrl = $location.absUrl().replace(/#.+$/g,""),
-					baseURL = $location.absUrl().match(/\/sites\/pub\/.+?[^/]/g)[0],
-					host = $location.host(),
-					encodeURL = $base64.encode($location.absUrl().replace(/#.+$/g,"")),
-					deferred = $q.defer();
-
-				var checkList = function(){
-					//should only run once because there is no image store on the database
-					if( imageStorage.get() === null ){
-						
-
-						//getting the config items
-						spService.getListItems("https://" + host + baseURL, configurationList, "?$select=PageURL, SlideFolder, encodeURL, options&$filter=encodeURL eq '" + encodeURL + "'",
-							function(response){
-								
-								config = response.data.d.results;
-								
-								//if a match is found then proceed on getting the images
-								if( config.length > 0 ){
-									
-									$http({
-										url:"https://" + host + baseURL + "/_api/web/getFolderByServerRelativeUrl('" + baseURL + config[0].SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
-								        method: "GET",
-								        headers: { "Accept": "application/json; odata=verbose"}
-									}).then(function(response){
-
-										
-										imageStorage.add(response.data.d.results);
-										imageStorage.setOptions(JSON.parse(config[0].options))
-										imageStorage.setFolderLocation(config[0].SlideFolder);
-
-										deferred.resolve(imageStorage.get());
-
-										//should have something to check if index is greater than total number of slides
-										if($routeParams.index > imageStorage.get().length){
-											$location.path("/slide/1"); //will always start on slide 1 if first url enter is greather than album length
-										}else{
-											$location.path("/slide/" + $routeParams.index);
-										}
-
-									}, function(response){
-										deferred.reject(response);
-										
-									});
-									
-								}else{
-									//if no match is found then keep going to setup mode
-									$location.path("/setup");
-								}
+            //one resolve to rule them all
+            var universalResolves = {
+                initializer: function(spService, $base64, $location, imageStorage, $http, $q, $routeParams) {
 
 
-							},
-							function(response){
-								deferred.reject(response);
-							}
-						);
+                    //declaring variable for url
+                    var mainUrl = $location.absUrl().replace(/#.+$/g, ""),
+                        baseURL = $location.absUrl().match(/\/sites\/pub\/.+?[^/]/g)[0],
+                        host = $location.host(),
+                        encodeURL = $base64.encode($location.absUrl().replace(/#.+$/g, "")),
+                        deferred = $q.defer();
 
-						
-					}
-
-					return deferred.promise;			
-					
-				}
+                    var checkList = function() {
+                        //should only run once because there is no image store on the database
+                        if (imageStorage.get() === null) {
 
 
-				return {
-					Url: {
-						main: mainUrl,
-						base: baseURL,
-						host: host
-					},
-					encodeURL: encodeURL,
-					run: checkList
-				}
-			}			
-		}
+                            //getting the config items
+                            spService.getListItems("https://" + host + baseURL, configurationList, "?$select=PageURL, SlideFolder, encodeURL, options&$filter=encodeURL eq '" + encodeURL + "'",
+                                function(response) {
 
-		var customRouteProvider = angular.extend({}, $routeProvider, {
-		    when: function(path, route) {
-		      route.resolve = (route.resolve) ? route.resolve : {};
-		      angular.extend(route.resolve, universalResolves);
-		      $routeProvider.when(path, route);
-		      return this;
-			}
-		});
+                                    config = response.data.d.results;
 
-		customRouteProvider
-			.when("/setup",{
-				templateUrl: "views/setup.html",
-				controller: "setupCtrl"
-			})
-			.when("/slide/:index",{
-				templateUrl: "views/slideshow.html",
-				controller: "slideShowCtrl"
-			})
-			.otherwise({
-				redirectTo: "/setup"
-			})
+                                    //if a match is found then proceed on getting the images
+                                    if (config.length > 0) {
+
+                                        $http({
+                                            url: "https://" + host + baseURL + "/_api/web/getFolderByServerRelativeUrl('" + baseURL + config[0].SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
+                                            method: "GET",
+                                            headers: {
+                                                "Accept": "application/json; odata=verbose"
+                                            }
+                                        }).then(function(response) {
 
 
-	})
+                                            imageStorage.add(response.data.d.results);
+                                            imageStorage.setOptions(JSON.parse(config[0].options))
+                                            imageStorage.setFolderLocation(config[0].SlideFolder);
 
-	</script>
+                                            deferred.resolve(imageStorage.get());
+
+                                            //should have something to check if index is greater than total number of slides
+                                            if ($routeParams.index > imageStorage.get().length) {
+                                                $location.path("/slide/1"); //will always start on slide 1 if first url enter is greather than album length
+                                            } else {
+                                                $location.path("/slide/" + $routeParams.index);
+                                            }
+
+                                        }, function(response) {
+                                            deferred.reject(response);
+
+                                        });
+
+                                    } else {
+                                        //if no match is found then keep going to setup mode
+                                        $location.path("/setup");
+                                    }
+
+
+                                },
+                                function(response) {
+                                    deferred.reject(response);
+                                }
+                            );
+
+
+                        }
+
+                        return deferred.promise;
+
+                    }
+
+
+                    return {
+                        Url: {
+                            main: mainUrl,
+                            base: baseURL,
+                            host: host
+                        },
+                        encodeURL: encodeURL,
+                        run: checkList
+                    }
+                }
+            }
+
+            var customRouteProvider = angular.extend({}, $routeProvider, {
+                when: function(path, route) {
+                    route.resolve = (route.resolve) ? route.resolve : {};
+                    angular.extend(route.resolve, universalResolves);
+                    $routeProvider.when(path, route);
+                    return this;
+                }
+            });
+
+            customRouteProvider
+                .when("/setup", {
+                    templateUrl: "views/setup.html",
+                    controller: "setupCtrl"
+                })
+                .when("/slide/:index", {
+                    templateUrl: "views/slideshow.html",
+                    controller: "slideShowCtrl"
+                })
+                .otherwise({
+                    redirectTo: "/setup"
+                })
+
+
+        })
+    </script>
 </body>
+
 </html>
