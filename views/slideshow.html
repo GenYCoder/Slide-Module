@@ -1,23 +1,22 @@
 <div id="angularSlide" ng-hide="slides.length === 0">
-	<div id="seriesOfSlides">
-		<div id="slideLabel" ng-show="options.labelheadline !== ''">{{options.labelheadline | uppercase}}</div>
-		<div id="slideHeadline" ng-show="slides[currentSlideNum - 1].Title === ''">{{options.headline}}</div>
-		<div id="slidedynamicHeadline" ng-show="slides[currentSlideNum - 1].Title !== ''">{{slides[currentSlideNum - 1].Title}}</div>
-		<div>
-			<img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" alt="">
-		</div>
-		<div id="authorname">
-			<span ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null">By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
-		</div>
-	</div>
-	<div id="pagination" image-move>
-		<div id="leftArrow" class="icon-prev"></div>
-		<div id="paginationCounter">
-			<span id="currentSlideNumber">{{currentSlideNum}}</span> of <span id="totalSlides">{{totalSlides}}</span>
-		</div>
-		<div id="rightArrow" class="icon-next"></div>
-	</div>
-	<div id="description" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0">
-		
-	</div>
+    <div id="seriesOfSlides">
+        <div id="slideLabel" ng-show="options.labelheadline !== ''">{{options.labelheadline | uppercase}}</div>
+        <div id="slideHeadline" ng-show="slides[currentSlideNum - 1].Title === '' || slides[currentSlideNum - 1].Title === null">{{options.headline}}</div>
+        <div id="slidedynamicHeadline" ng-show="slides[currentSlideNum - 1].Title !== '' || slides[currentSlideNum - 1].Title !== null">{{slides[currentSlideNum - 1].Title}}</div>
+        <div id="slideContainer">
+            <img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" alt="">
+        </div>
+        <div id="authorname" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null">
+            <span>By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
+        </div>
+    </div>
+    <div id="pagination" image-move>
+        <div id="leftArrow" class="icon-prev"></div>
+        <div id="paginationCounter">
+            <span id="currentSlideNumber">{{currentSlideNum}}</span> of <span id="totalSlides">{{totalSlides}}</span>
+        </div>
+        <div id="rightArrow" class="icon-next"></div>
+    </div>
+    <div id="description" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0">
+    </div>
 </div>
