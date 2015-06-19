@@ -41,7 +41,8 @@
     color: #FFFFFF;
     width: 470px;
     position: absolute;
-    margin-top: -20px; }
+    margin-top: -20px;
+    overflow: hidden; }
 
 #angularSlide #pagination {
   text-align: center;
