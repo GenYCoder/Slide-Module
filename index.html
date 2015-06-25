@@ -29,7 +29,7 @@
 
                     //declaring variable for url
                     var mainUrl = $location.absUrl().replace(/#.+$/g, ""),
-                        baseURL = $location.absUrl().match(/\/sites\/pub\/.+?[^/]/g)[0],
+                        baseURL = $location.absUrl().match(/\/sites\/pub\/.+(?=\/Pages)/g)[0],
                         host = $location.host(),
                         encodeURL = $base64.encode($location.absUrl().replace(/#.+$/g, "")),
                         deferred = $q.defer();
