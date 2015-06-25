@@ -16,7 +16,8 @@ angular.module("setup", [])
                 encodeURL: initializer.encodeURL,
                 options: JSON.stringify({
                     headline: $scope.options.headline,
-                    labelheadline: $scope.options.labelheadline
+                    labelheadline: $scope.options.labelheadline,
+                    slideWidth: '480px'
                 })
             };
 

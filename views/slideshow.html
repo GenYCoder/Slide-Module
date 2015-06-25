@@ -1,16 +1,16 @@
-<div id="angularSlide" ng-hide="slides.length === 0">
+<div id="angularSlide" ng-hide="slides.length === 0" ng-style="{'width':options.slideWidth}">
     <div id="seriesOfSlides">
         <div id="slideLabel" ng-show="options.labelheadline !== ''">{{options.labelheadline | uppercase}}</div>
         <div id="slideHeadline" ng-show="slides[currentSlideNum - 1].Title === '' || slides[currentSlideNum - 1].Title === null">{{options.headline}}</div>
         <div id="slidedynamicHeadline" ng-show="slides[currentSlideNum - 1].Title !== '' || slides[currentSlideNum - 1].Title !== null">{{slides[currentSlideNum - 1].Title}}</div>
         <div id="slideContainer">
-            <img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" alt="">
+            <img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" ng-style="{'width':options.slideWidth}" alt="">
         </div>
         <div id="authorname" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null">
             <span>By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
         </div>
     </div>
-    <div id="description" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.Description0 === null" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0">
+    <div id="description" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.Description0 === null || slides[currentSlideNum - 1].ListItemAllFields.Description0 === ''" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0" ng-style="{'width':options.slideWidth}">
     </div>
     <div id="pagination" image-move>
         <div id="leftArrow" class="icon-prev"></div>

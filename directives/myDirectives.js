@@ -1,11 +1,11 @@
 angular.module("myDirectives", [])
-    .directive("imageMove", function ($window) {
+    .directive("imageMove", function ($document) {
         return {
             link: function (scope) {
 
                 //needed this because it keeps on calling keypress for every new scope created here and help do necessary clean ups to avoid memory leaks
                 scope.$on("$destroy", function () {
-                    angular.element($window).unbind("keypress");
+                    $document.unbind("keypress");
                     angular.element(document.querySelector("#leftArrow")).unbind("click");
                     angular.element(document.querySelector("#rightArrow")).unbind("click");
                 });
@@ -20,13 +20,13 @@ angular.module("myDirectives", [])
                     scope.$apply(scope.rightArrow());
                 });
 
-
                 //global keypress for arrow 
-                angular.element($window).bind("keypress", function (e) {
-                    if (e.which === 44) {
+                $document.bind("keypress", function (e) {
+
+                    if (e.charCode === 44 || e.keyCode === 44) {
 
                         scope.$apply(scope.leftArrow());
-                    } else if (e.which === 46) {
+                    } else if (e.charCode === 46 || e.keyCode === 46) {
                         scope.$apply(scope.rightArrow());
                     }
                 });

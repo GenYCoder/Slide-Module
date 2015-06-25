@@ -1,26 +1,26 @@
 #angularSlide{
+	background: $msk_light_gray;
 	#seriesOfSlides{
-		width: $defaultWidth;
 		margin: 0px auto;
 		#slideLabel {
 			font-size: 12px;
 			word-break: break-all;
 			color: $msk_gray;
+			background: $white;
 		}
 		#slideHeadline, #slidedynamicHeadline {
 			font-size: 23px;
 			font-weight: bold;
-			margin-bottom: 10px;
+			padding-bottom: 10px;
 			word-break: break-all;
 			color: lighten(black, 15%);
+			background: $white;
 		}
 		#slideContainer {
-			height: 270px;
-			overflow: hidden;
+			background: $white;
 		}
 		img {
 			border: 0px;
-			width: $defaultWidth;
 		}
 		#authorname {
 			background-color: rgb(0,0,0);
@@ -37,11 +37,13 @@
 		}
 	}
 	#pagination {
-		$arrowSpacing: 185px;
+		$arrowSpacing: 39%;
+		$paginationPadTop: 15px;
 		text-align: center;
 		position: relative;
 		height: 40px;
-		margin-top: 15px;
+		padding-top: $paginationPadTop;
+		background: $white;
 		#currentSlideNumber, #totalSlides {
 			font-weight: bold;
 		}
@@ -52,9 +54,11 @@
 		}
 		#leftArrow{
 			left: $arrowSpacing;
+			top: $paginationPadTop;
 		}
 		#rightArrow {
 			right: $arrowSpacing;
+			top: $paginationPadTop;
 		}
 		#paginationCounter {
 			text-align: center;
@@ -62,8 +66,8 @@
 		}
 	}
 	#description{
-		width: $defaultWidth;
 		color: lighten(black,15%);
+		background: $white;
 		margin-top: 10px;
 		height: 69px;
 		overflow-y: scroll;
