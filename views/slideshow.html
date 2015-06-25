@@ -10,13 +10,13 @@
             <span>By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
         </div>
     </div>
+    <div id="description" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.Description0 === null" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0">
+    </div>
     <div id="pagination" image-move>
         <div id="leftArrow" class="icon-prev"></div>
         <div id="paginationCounter">
             <span id="currentSlideNumber">{{currentSlideNum}}</span> of <span id="totalSlides">{{totalSlides}}</span>
         </div>
         <div id="rightArrow" class="icon-next"></div>
-    </div>
-    <div id="description" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0">
     </div>
 </div>

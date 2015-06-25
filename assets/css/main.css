@@ -28,6 +28,9 @@
     margin-bottom: 10px;
     word-break: break-all;
     color: #262626; }
+  #angularSlide #seriesOfSlides #slideContainer {
+    height: 270px;
+    overflow: hidden; }
   #angularSlide #seriesOfSlides img {
     border: 0px;
     width: 480px; }
@@ -65,7 +68,10 @@
 
 #angularSlide #description {
   width: 480px;
-  color: #262626; }
+  color: #262626;
+  margin-top: 10px;
+  height: 69px;
+  overflow-y: scroll; }
 
 #angularContainer {
   font-family: arial;

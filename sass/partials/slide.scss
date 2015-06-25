@@ -14,6 +14,10 @@
 			word-break: break-all;
 			color: lighten(black, 15%);
 		}
+		#slideContainer {
+			height: 270px;
+			overflow: hidden;
+		}
 		img {
 			border: 0px;
 			width: $defaultWidth;
@@ -60,5 +64,8 @@
 	#description{
 		width: $defaultWidth;
 		color: lighten(black,15%);
+		margin-top: 10px;
+		height: 69px;
+		overflow-y: scroll;
 	}
 }
