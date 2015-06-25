@@ -50,7 +50,9 @@
   position: relative;
   height: 40px;
   padding-top: 15px;
-  background: #FFFFFF; }
+  background: #FFFFFF;
+  width: 130px;
+  margin: 0px auto; }
   #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
     font-weight: bold; }
   #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
@@ -58,10 +60,10 @@
     position: absolute;
     top: 0px; }
   #angularSlide #pagination #leftArrow {
-    left: 37%;
+    left: 0px;
     top: 15px; }
   #angularSlide #pagination #rightArrow {
-    right: 37%;
+    right: 0px;
     top: 15px; }
   #angularSlide #pagination #paginationCounter {
     text-align: center;

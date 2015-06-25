@@ -10,7 +10,7 @@
             <span>By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
         </div>
     </div>
-    <div id="description" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.Description0 === null || slides[currentSlideNum - 1].ListItemAllFields.Description0 === ''" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0" ng-style="{'width':options.slideWidth}">
+    <div id="description" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.Description0 == null || slides[currentSlideNum - 1].ListItemAllFields.Description0 === ''" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0" ng-style="{'width':options.slideWidth}">
     </div>
     <div id="pagination" image-move ng-hide="slides.length <= 1">
         <div id="leftArrow" class="icon-prev"></div>

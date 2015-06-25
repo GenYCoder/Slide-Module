@@ -36,13 +36,15 @@
 		}
 	}
 	#pagination {
-		$arrowSpacing: 37%;
+		$arrowSpacing: 0px;
 		$paginationPadTop: 15px;
 		text-align: center;
 		position: relative;
 		height: 40px;
 		padding-top: $paginationPadTop;
 		background: $white;
+		width: 130px;
+		margin: 0px auto;
 		#currentSlideNumber, #totalSlides {
 			font-weight: bold;
 		}
