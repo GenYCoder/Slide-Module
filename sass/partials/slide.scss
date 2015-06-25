@@ -1,5 +1,5 @@
 #angularSlide{
-	background: $msk_light_gray;
+
 	#seriesOfSlides{
 		margin: 0px auto;
 		#slideLabel {
@@ -30,14 +30,13 @@
 			padding: 5px;
 			height: 10px;
 			color: $white;
-			width: 470px;
 			position: absolute;
-			margin-top: -20px;
+			margin-top: -23px;
 			overflow: hidden;
 		}
 	}
 	#pagination {
-		$arrowSpacing: 39%;
+		$arrowSpacing: 37%;
 		$paginationPadTop: 15px;
 		text-align: center;
 		position: relative;

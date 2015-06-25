@@ -4,20 +4,24 @@ angular.module("setup", [])
 
         var config = null;
         $scope.folderURL = "";
+        $scope.options = {
+            headline: "",
+            labelheadline: ""
+        };
 
 
 
         $scope.save = function () {
-
             //the list database should be setup with these names
             var data = {
                 PageURL: initializer.Url.main,
                 SlideFolder: ($scope.folderURL).replace(/(^[^A-Za-z0-9]+|[^A-Za-z0-9]+$)/g, ""),
                 encodeURL: initializer.encodeURL,
                 options: JSON.stringify({
-                    headline: $scope.options.headline,
-                    labelheadline: $scope.options.labelheadline,
-                    slideWidth: '480px'
+                    headline: angular.isUndefined($scope.options.headline) ? '' : $scope.options.headline,
+                    labelheadline: angular.isUndefined($scope.options.labelheadline) ? '' : $scope.options.labelheadline,
+                    slideWidth: 480 + 'px',
+                    photoCreditWidth: 480 - 10 + 'px'
                 })
             };
 
@@ -84,6 +88,8 @@ angular.module("setup", [])
                         });
 
 
+                } else {
+                    alert("The folder does not exist or there are no images on the folder");
                 }
 
             }, function (response) {

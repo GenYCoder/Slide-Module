@@ -15,68 +15,66 @@
     padding: 5px;
     color: white; }
 
-#angularSlide {
-  background: #E0E1DA; }
-  #angularSlide #seriesOfSlides {
-    margin: 0px auto; }
-    #angularSlide #seriesOfSlides #slideLabel {
-      font-size: 12px;
-      word-break: break-all;
-      color: #797979;
-      background: #FFFFFF; }
-    #angularSlide #seriesOfSlides #slideHeadline, #angularSlide #seriesOfSlides #slidedynamicHeadline {
-      font-size: 23px;
-      font-weight: bold;
-      padding-bottom: 10px;
-      word-break: break-all;
-      color: #262626;
-      background: #FFFFFF; }
-    #angularSlide #seriesOfSlides #slideContainer {
-      background: #FFFFFF; }
-    #angularSlide #seriesOfSlides img {
-      border: 0px; }
-    #angularSlide #seriesOfSlides #authorname {
-      background-color: black;
-      background-color: rgba(0, 0, 0, 0.3);
-      text-align: right;
-      font-size: 9px;
-      padding: 5px;
-      height: 10px;
-      color: #FFFFFF;
-      width: 470px;
-      position: absolute;
-      margin-top: -20px;
-      overflow: hidden; }
-  #angularSlide #pagination {
-    text-align: center;
-    position: relative;
-    height: 40px;
-    padding-top: 15px;
+#angularSlide #seriesOfSlides {
+  margin: 0px auto; }
+  #angularSlide #seriesOfSlides #slideLabel {
+    font-size: 12px;
+    word-break: break-all;
+    color: #797979;
     background: #FFFFFF; }
-    #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
-      font-weight: bold; }
-    #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
-      cursor: pointer;
-      position: absolute;
-      top: 0px; }
-    #angularSlide #pagination #leftArrow {
-      left: 39%;
-      top: 15px; }
-    #angularSlide #pagination #rightArrow {
-      right: 39%;
-      top: 15px; }
-    #angularSlide #pagination #paginationCounter {
-      text-align: center;
-      padding-top: 5px; }
-  #angularSlide #description {
+  #angularSlide #seriesOfSlides #slideHeadline, #angularSlide #seriesOfSlides #slidedynamicHeadline {
+    font-size: 23px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    word-break: break-all;
     color: #262626;
-    background: #FFFFFF;
-    margin-top: 10px;
-    height: 69px;
-    overflow-y: scroll; }
+    background: #FFFFFF; }
+  #angularSlide #seriesOfSlides #slideContainer {
+    background: #FFFFFF; }
+  #angularSlide #seriesOfSlides img {
+    border: 0px; }
+  #angularSlide #seriesOfSlides #authorname {
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: right;
+    font-size: 9px;
+    padding: 5px;
+    height: 10px;
+    color: #FFFFFF;
+    position: absolute;
+    margin-top: -23px;
+    overflow: hidden; }
+
+#angularSlide #pagination {
+  text-align: center;
+  position: relative;
+  height: 40px;
+  padding-top: 15px;
+  background: #FFFFFF; }
+  #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
+    font-weight: bold; }
+  #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
+    cursor: pointer;
+    position: absolute;
+    top: 0px; }
+  #angularSlide #pagination #leftArrow {
+    left: 37%;
+    top: 15px; }
+  #angularSlide #pagination #rightArrow {
+    right: 37%;
+    top: 15px; }
+  #angularSlide #pagination #paginationCounter {
+    text-align: center;
+    padding-top: 5px; }
+
+#angularSlide #description {
+  color: #262626;
+  background: #FFFFFF;
+  margin-top: 10px;
+  height: 69px;
+  overflow-y: scroll; }
 
 #angularContainer {
   font-family: arial;
   font-size: 14px;
-  width: 480px;
-  margin: 0px auto; }
+  width: 480px; }

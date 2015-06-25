@@ -6,13 +6,13 @@
         <div id="slideContainer">
             <img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" ng-style="{'width':options.slideWidth}" alt="">
         </div>
-        <div id="authorname" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null">
+        <div id="authorname" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null" ng-style="{'width':options.photoCreditWidth}">
             <span>By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
         </div>
     </div>
     <div id="description" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.Description0 === null || slides[currentSlideNum - 1].ListItemAllFields.Description0 === ''" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.Description0" ng-style="{'width':options.slideWidth}">
     </div>
-    <div id="pagination" image-move>
+    <div id="pagination" image-move ng-hide="slides.length <= 1">
         <div id="leftArrow" class="icon-prev"></div>
         <div id="paginationCounter">
             <span id="currentSlideNumber">{{currentSlideNum}}</span> of <span id="totalSlides">{{totalSlides}}</span>
