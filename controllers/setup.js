@@ -23,18 +23,6 @@ angular.module("setup", [])
             return item.ItemCount > 0;
         };
 
-        $scope.goBack = function (folderLink) {
-            spService.getFolderItems("https://" + initializer.Url.host + initializer.Url.base, folderLink, "?$expand=Folders, ParentFolder/ParentFolder",
-                function (response) {
-
-                    $scope.folders = response.data.d.results;
-                    $scope.folderURL = $scope.folders[0].ParentFolder.ServerRelativeUrl;
-                },
-                function (response) {
-
-                }
-            );
-        };
 
         $scope.navigateFolder = function (folderLink) {
 
