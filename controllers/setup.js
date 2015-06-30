@@ -58,7 +58,7 @@ angular.module("setup", [])
 
             //check if slide Folder exists and if it contains images
             $http({
-                url: "https://" + initializer.Url.host + initializer.Url.base + "/_api/web/getFolderByServerRelativeUrl('" + data.SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
+                url: "https://" + initializer.Url.host + initializer.Url.base + "/_api/web/getFolderByServerRelativeUrl('" + data.SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/OData__Comments, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
                 method: "GET",
                 headers: {
                     "Accept": "application/json; odata=verbose"
