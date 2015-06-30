@@ -51,7 +51,7 @@
                                     if (config.length > 0) {
 
                                         $http({
-                                            url: "https://" + host + baseURL + "/_api/web/getFolderByServerRelativeUrl('" + config[0].SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
+                                            url: "https://" + host + baseURL + "/_api/web/getFolderByServerRelativeUrl('" + config[0].SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/OData__Comments, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
                                             method: "GET",
                                             headers: {
                                                 "Accept": "application/json; odata=verbose"
