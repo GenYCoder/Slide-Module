@@ -4,7 +4,7 @@
         <div id="slideHeadline" ng-show="slides[currentSlideNum - 1].Title === '' || slides[currentSlideNum - 1].Title === null">{{options.headline}}</div>
         <div id="slidedynamicHeadline" ng-show="slides[currentSlideNum - 1].Title !== '' || slides[currentSlideNum - 1].Title !== null">{{slides[currentSlideNum - 1].Title}}</div>
         <div id="slideContainer">
-            <img ng-src="https://{{Url.host}}{{Url.base}}/{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" ng-style="{'width':options.slideWidth}" alt="">
+            <img ng-src="https://{{Url.host}}{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" ng-style="{'width':options.slideWidth}" alt="">
         </div>
         <div id="authorname" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null" ng-style="{'width':options.photoCreditWidth}">
             <span>By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>

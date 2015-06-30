@@ -2,14 +2,40 @@
 
 	width: $defaultWidth;
 
+	#folderControls {
+		margin-top: 10px;
+		span {
+			color: $blue3;
+			cursor: pointer;		
+		}
+	}
+
 	#form .formRow{
-		margin-bottom: 10px;
+		margin-bottom: 15px;
+		.formLabel {
+			font-weight: bold;
+		}
+		#folderPath {
+			color: $msk_orange;
+		}
 	}
 
 	.angularInputs {
 		width: 95%;
 		
 
+	}
+
+	#folderList {
+		height: 200px;
+		overflow-y: scroll;
+		border: inset 2px $msk_light_gray;
+		margin-bottom: 10px;
+		span {
+			cursor: pointer;
+			color: $msk_gray;
+			padding: 5px;
+		}
 	}
 
 	#saveButton{

@@ -130,6 +130,28 @@ angular.module("spModule", [])
 			    });
 			
 			},
+			getParentFolder:function(url, query, complete, failure){
+			    $http({
+			    	url: url + "/_api/web/Folders" + query,
+			        method: "GET",
+			        headers: { "Accept": "application/json; odata=verbose" }
+			    }).then(function(response){
+			    	complete(response);
+			    }, function(response){
+			    	failure(response);
+			    });					
+			},
+			getFolderItems:function(url, foldername, query, complete, failure){
+			    $http({
+			    	url: url + "/_api/web/GetFolderByServerRelativeUrl('" + foldername + "')/Folders" + query,
+			        method: "GET",
+			        headers: { "Accept": "application/json; odata=verbose" }
+			    }).then(function(response){
+			    	complete(response);
+			    }, function(response){
+			    	failure(response);
+			    });				
+			},
 			addListItem:function(url, listname, metadata, complete, failure){
 			    // Prepping our update
 			    var item = angular.extend({

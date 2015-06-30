@@ -1,9 +1,27 @@
 #setup {
   width: 480px; }
+  #setup #folderControls {
+    margin-top: 10px; }
+    #setup #folderControls span {
+      color: #377BB7;
+      cursor: pointer; }
   #setup #form .formRow {
-    margin-bottom: 10px; }
+    margin-bottom: 15px; }
+    #setup #form .formRow .formLabel {
+      font-weight: bold; }
+    #setup #form .formRow #folderPath {
+      color: #F16C3C; }
   #setup .angularInputs {
     width: 95%; }
+  #setup #folderList {
+    height: 200px;
+    overflow-y: scroll;
+    border: inset 2px #E0E1DA;
+    margin-bottom: 10px; }
+    #setup #folderList span {
+      cursor: pointer;
+      color: #797979;
+      padding: 5px; }
   #setup #saveButton {
     background: #377BB7;
     text-align: center;

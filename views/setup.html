@@ -3,15 +3,22 @@
 	<p>You must have editing rights to use this.</p>
 	<div id="form">
 		<div class="formRow">
-			<span>Folder Path of Images</span>
-			<input class="angularInputs" type="text" ng-model="folderURL">
+			<span class="formLabel">Select a folder: </span> <span id="folderPath">{{folderURL || "No Folder Selected"}}</span>
+			<div id="folderControls">
+				<span ng-click="navigateFolder(folders[0].ParentFolder.ParentFolder.ServerRelativeUrl)">« Navigate Up</span>
+			</div>
+			<div id="folderList">
+				<div ng-repeat="folder in folders | filter:itemCount | orderBy:'Name'">
+					<span ng-click="navigateFolder(folder.ServerRelativeUrl)">» {{folder.Name}}</span>
+				</div>
+			</div>
 		</div>
 		<div class="formRow">
-			<span>Label for headline</span>
+			<span class="formLabel">Label for headline</span>
 			<input class="angularInputs" type="text" ng-model="options.labelheadline">
 		</div>
 		<div class="formRow">
-			<span>Headline</span>
+			<span class="formLabel">Headline</span>
 			<input class="angularInputs" type="text" ng-model="options.headline">
 		</div>
 	</div>	

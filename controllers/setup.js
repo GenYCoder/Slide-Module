@@ -9,13 +9,56 @@ angular.module("setup", [])
             labelheadline: ""
         };
 
+        //will always run to get the folder structure
+        spService.getParentFolder("https://" + initializer.Url.host + initializer.Url.base, "?$expand=Folders,ParentFolder/ParentFolder",
+            function (response) {
+                $scope.folders = response.data.d.results;
+            },
+            function (response) {
 
+            }
+        );
+
+        $scope.itemCount = function(item){
+            return item.ItemCount > 0;
+        };
+
+        $scope.goBack = function (folderLink) {
+            spService.getFolderItems("https://" + initializer.Url.host + initializer.Url.base, folderLink, "?$expand=Folders, ParentFolder/ParentFolder",
+                function (response) {
+
+                    $scope.folders = response.data.d.results;
+                    $scope.folderURL = $scope.folders[0].ParentFolder.ServerRelativeUrl;
+                },
+                function (response) {
+
+                }
+            );
+        };
+
+        $scope.navigateFolder = function (folderLink) {
+
+            spService.getFolderItems("https://" + initializer.Url.host + initializer.Url.base, folderLink, "?$expand=Folders, ParentFolder/ParentFolder",
+                function (response) {
+
+                    if (response.data.d.results.length !== 0) {
+                        $scope.folders = response.data.d.results;
+                        $scope.folderURL = $scope.folders[0].ParentFolder.ServerRelativeUrl;
+                    } else {
+                        $scope.folderURL = "There's no items in that folder"
+                    }
+                },
+                function (response) {
+
+                }
+            );
+        };
 
         $scope.save = function () {
             //the list database should be setup with these names
             var data = {
                 PageURL: initializer.Url.main,
-                SlideFolder: ($scope.folderURL).replace(/(^[^A-Za-z0-9]+|[^A-Za-z0-9]+$)/g, ""),
+                SlideFolder: $scope.folderURL,
                 encodeURL: initializer.encodeURL,
                 options: JSON.stringify({
                     headline: angular.isUndefined($scope.options.headline) ? '' : $scope.options.headline,
@@ -27,7 +70,7 @@ angular.module("setup", [])
 
             //check if slide Folder exists and if it contains images
             $http({
-                url: "https://" + initializer.Url.host + initializer.Url.base + "/_api/web/getFolderByServerRelativeUrl('" + initializer.Url.base + data.SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
+                url: "https://" + initializer.Url.host + initializer.Url.base + "/_api/web/getFolderByServerRelativeUrl('" + data.SlideFolder + "')/Files?$select=Title,Name,TimeCreated,TimeLastModified,ListItemAllFields/Description0, ListItemAllFields/OData__Author&$expand=Author,ListItemAllFields",
                 method: "GET",
                 headers: {
                     "Accept": "application/json; odata=verbose"
