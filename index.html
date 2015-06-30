@@ -34,6 +34,8 @@
                         encodeURL = $base64.encode($location.absUrl().replace(/#.+$/g, "")),
                         deferred = $q.defer();
 
+                    console.log(baseURL)
+
                     var checkList = function() {
                         //should only run once because there is no image store on the database
                         if (imageStorage.get() === null) {
