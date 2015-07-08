@@ -1,76 +1,79 @@
-#angularSlide{
-
-	#seriesOfSlides{
-		margin: 0px auto;
-		#slideLabel {
-			font-size: 12px;
-			word-break: break-all;
-			color: $msk_gray;
-			background: $white;
-		}
-		#slideHeadline, #slidedynamicHeadline {
-			font-size: 23px;
-			font-weight: bold;
-			padding-bottom: 10px;
-			word-break: break-all;
-			color: lighten(black, 15%);
-			background: $white;
-		}
-		#slideContainer {
-			background: $white;
-		}
-		img {
-			border: 0px;
-		}
-		#authorname {
-			background-color: rgb(0,0,0);
-			background-color: rgba(0,0,0,.30);
-			text-align: right;
-			font-size: 9px;
-			padding: 5px;
-			height: 10px;
-			color: $white;
-			position: absolute;
-			margin-top: -23px;
-			overflow: hidden;
-		}
-	}
-	#pagination {
-		$arrowSpacing: 0px;
-		$paginationPadTop: 15px;
-		text-align: center;
-		position: relative;
-		height: 40px;
-		padding-top: $paginationPadTop;
-		background: $white;
-		width: 130px;
-		margin: 0px auto;
-		#currentSlideNumber, #totalSlides {
-			font-weight: bold;
-		}
-		#leftArrow, #rightArrow {
-			cursor: pointer;
-			position: absolute;
-			top: 0px;
-		}
-		#leftArrow{
-			left: $arrowSpacing;
-			top: $paginationPadTop;
-		}
-		#rightArrow {
-			right: $arrowSpacing;
-			top: $paginationPadTop;
-		}
-		#paginationCounter {
-			text-align: center;
-			padding-top: 5px;
-		}
-	}
-	#description{
-		color: lighten(black,15%);
-		background: $white;
-		margin-top: 10px;
-		height: 69px;
-		overflow-y: scroll;
-	}
+#angularSlide {
+    #seriesOfSlides {
+        margin: 0px auto;
+        #slideLabel {
+            font-size: 12px;
+            word-break: break-all;
+            color: $msk_gray;
+            background: $white;
+        }
+        #slideHeadline,
+        #slidedynamicHeadline {
+            font-size: 23px;
+            font-weight: bold;
+            padding-bottom: 10px;
+            word-break: break-all;
+            color: lighten(black, 15%);
+            background: $white;
+        }
+        #slideContainer {
+            background: $white;
+        }
+        img {
+            border: 0px;
+        }
+        #authorname {
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, .30);
+            text-align: right;
+            font-size: 9px;
+            padding: 5px;
+            height: 10px;
+            color: $white;
+            position: absolute;
+            margin-top: -23px;
+            overflow: hidden;
+        }
+    }
+    #pagination {
+        $arrowSpacing: 0px;
+        $paginationPadTop: 15px;
+        text-align: center;
+        position: relative;
+        height: 40px;
+        padding-top: $paginationPadTop;
+        background: $white;
+        width: 130px;
+        margin: 0px auto;
+        #currentSlideNumber, #totalSlides {
+            font-weight: bold;
+        }
+        #leftArrow,
+        #rightArrow {
+            cursor: pointer;
+            position: absolute;
+            top: 0px;
+        }
+        #leftArrow {
+            left: $arrowSpacing;
+            top: $paginationPadTop;
+        }
+        #rightArrow {
+            right: $arrowSpacing;
+            top: $paginationPadTop;
+        }
+        #paginationCounter {
+            text-align: center;
+            padding-top: 5px;
+        }
+    }
+    #description {
+        color: lighten(black, 15%);
+        background: $white;
+        margin-top: 10px;
+        height: 69px;
+    }
+    .scroll {
+        overflow-y: scroll;
+    }
 }

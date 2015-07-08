@@ -39,7 +39,8 @@
     word-break: break-all;
     color: #797979;
     background: #FFFFFF; }
-  #angularSlide #seriesOfSlides #slideHeadline, #angularSlide #seriesOfSlides #slidedynamicHeadline {
+  #angularSlide #seriesOfSlides #slideHeadline,
+  #angularSlide #seriesOfSlides #slidedynamicHeadline {
     font-size: 23px;
     font-weight: bold;
     padding-bottom: 10px;
@@ -72,7 +73,8 @@
   margin: 0px auto; }
   #angularSlide #pagination #currentSlideNumber, #angularSlide #pagination #totalSlides {
     font-weight: bold; }
-  #angularSlide #pagination #leftArrow, #angularSlide #pagination #rightArrow {
+  #angularSlide #pagination #leftArrow,
+  #angularSlide #pagination #rightArrow {
     cursor: pointer;
     position: absolute;
     top: 0px; }
@@ -90,7 +92,9 @@
   color: #262626;
   background: #FFFFFF;
   margin-top: 10px;
-  height: 69px;
+  height: 69px; }
+
+#angularSlide .scroll {
   overflow-y: scroll; }
 
 #angularContainer {

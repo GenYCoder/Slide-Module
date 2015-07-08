@@ -52,7 +52,8 @@ angular.module("setup", [])
                     headline: angular.isUndefined($scope.options.headline) ? '' : $scope.options.headline,
                     labelheadline: angular.isUndefined($scope.options.labelheadline) ? '' : $scope.options.labelheadline,
                     slideWidth: 480 + 'px',
-                    photoCreditWidth: 480 - 10 + 'px'
+                    photoCreditWidth: 480 - 10 + 'px',
+                    scrollMode: true
                 })
             };
 
