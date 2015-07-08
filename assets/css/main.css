@@ -97,6 +97,9 @@
 #angularSlide .scroll {
   overflow-y: scroll; }
 
+#angularSlide .hideDescription {
+  display: none; }
+
 #angularContainer {
   font-family: arial;
   font-size: 14px;

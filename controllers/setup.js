@@ -53,7 +53,8 @@ angular.module("setup", [])
                     labelheadline: angular.isUndefined($scope.options.labelheadline) ? '' : $scope.options.labelheadline,
                     slideWidth: 480 + 'px',
                     photoCreditWidth: 480 - 10 + 'px',
-                    scrollMode: true
+                    scrollMode: true,
+                    isDescription: true
                 })
             };
 
