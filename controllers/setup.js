@@ -6,7 +6,8 @@ angular.module("setup", [])
         $scope.folderURL = "";
         $scope.options = {
             headline: "",
-            labelheadline: ""
+            labelheadline: "",
+            description: ""
         };
 
         //will always run to get the folder structure
@@ -51,6 +52,7 @@ angular.module("setup", [])
                 options: JSON.stringify({
                     headline: angular.isUndefined($scope.options.headline) ? '' : $scope.options.headline,
                     labelheadline: angular.isUndefined($scope.options.labelheadline) ? '' : $scope.options.labelheadline,
+                    description: angular.isUndefined($scope.options.description) ? '' : $scope.options.description,
                     slideWidth: 480 + 'px',
                     photoCreditWidth: 480 - 10 + 'px',
                     scrollMode: true,

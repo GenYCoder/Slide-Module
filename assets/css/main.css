@@ -44,9 +44,11 @@
     font-size: 23px;
     font-weight: bold;
     padding-bottom: 10px;
-    word-break: break-all;
     color: #262626;
     background: #FFFFFF; }
+  #angularSlide #seriesOfSlides #descriptionHeadline {
+    margin-top: -20px;
+    margin-bottom: 5px; }
   #angularSlide #seriesOfSlides #slideContainer {
     background: #FFFFFF; }
   #angularSlide #seriesOfSlides img {

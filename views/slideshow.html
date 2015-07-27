@@ -3,11 +3,12 @@
         <div id="slideLabel" ng-show="options.labelheadline !== ''">{{options.labelheadline | uppercase}}</div>
         <div id="slideHeadline" ng-show="slides[currentSlideNum - 1].Title === '' || slides[currentSlideNum - 1].Title === null">{{options.headline}}</div>
         <div id="slidedynamicHeadline" ng-show="slides[currentSlideNum - 1].Title !== '' || slides[currentSlideNum - 1].Title !== null">{{slides[currentSlideNum - 1].Title}}</div>
+        <div id="descriptionHeadline" ng-show="options.description !== ''">{{options.description}}</div>
         <div id="slideContainer">
             <img ng-src="https://{{Url.host}}{{slideLocation}}/{{slides[currentSlideNum - 1].Name}}" ng-style="{'width':options.slideWidth}" alt="">
         </div>
         <div id="authorname" ng-hide="slides[currentSlideNum - 1].ListItemAllFields.OData__Author === null" ng-style="{'width':options.photoCreditWidth}">
-            <span>Photo By {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
+            <span>Photo by {{slides[currentSlideNum - 1].ListItemAllFields.OData__Author}}</span>
         </div>
     </div>
     <div id="description" ng-bind-html="slides[currentSlideNum - 1].ListItemAllFields.OData__Comments" ng-class="{'scroll':options.scrollMode, 'hideDescription':!options.isDescription}" ng-style="{'width':options.slideWidth}">

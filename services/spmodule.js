@@ -99,7 +99,7 @@ angular.module("spModule", [])
 				});
 			},
 			getListItemType:function(name){
-			    return ("SP.Data." + name[0].toUpperCase() + name.substring(1) + "ListItem").replace(" ", "_x0020_");
+			    return ("SP.Data." + name[0].toUpperCase() + name.substring(1) + "ListItem").replace(/\s/g, "_x0020_");
 			},
 			getListItem:function(url, listname, id, query, complete, failure){
 			  

@@ -12,9 +12,12 @@
             font-size: 23px;
             font-weight: bold;
             padding-bottom: 10px;
-            word-break: break-all;
             color: lighten(black, 15%);
             background: $white;
+        }
+        #descriptionHeadline {
+            margin-top: -20px;
+            margin-bottom: 5px;
         }
         #slideContainer {
             background: $white;
